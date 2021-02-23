@@ -70,8 +70,8 @@ render() {
     <BrowserRouter>
      <div>
        <div className="container">
-       <SearchForm query={this.state.query} onSearch={this.performSearch}  />
-       
+       <SearchForm onSearch={this.performSearch}  />
+
            <Nav />
          
          <Switch>

@@ -1,48 +1,103 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import apiKey from './config/config.js'
+import {
+  BrowserRouter,
+  Route,
+  withRouter,
+  Switch
+} from 'react-router-dom';
+import axios from 'axios';
+import apiKey from './config/config.js';
+import PhotoList from './components/PhotoList';
+import SearchForm from './components/SearchForm';
+import Nav from './components/Nav';
 
 export default class App extends Component {
 
 constructor() {
   super();
   this.state = {
-    photos: []
-  }
+    photos: [],
+    cats: [],
+    dogs: [],
+    airplanes: []
+   
+
+  };
 
 }
-
+// Calls performSearch to load photo states
 componentDidMount() {
-  axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sunset&per_page=24&format=json&nojsoncallback=1`)
-    .then(response => {
-      this.setState({
-        photos: response.data.photos
-
-    });
-  })
-    .catch(error => {
-       console.log('Error fetching and parsing data', error);
-    });
+  this.performSearch();
+  this.performSearch('cats');
+  this.performSearch('dogs');
+  this.performSearch('airplanes');
+ 
 
 }
+//Handles API call and search feature to photos from Flickr
+performSearch = async (query = 'airplanes') => {
+  const response = await axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+    .then((response) => {
+      switch (query) {
+        case 'dogs':
+          this.setState({ dogs: response.data.photos.photo });
+          break;
+        case 'cats':
+          this.setState({ cats: response.data.photos.photo});
+          break;
+        case 'airplanes':
+          this.setState({ airplanes: response.data.photos.photo });
+          break;
+          default:
+            this.setState({
+              photos: response.data.photos.photo
+            })
+      }  
+})
+  .catch(error => {
+     console.log('Error fetching and parsing data', error);
+  });
+}
 
+
+
+// Rendering elements and routing
 
 render() {
-  console.log(this.state.photos)
   return (
-    <div>
-      <div>
-        <div>
-          <h1> </h1>
-        </div>
-      </div>
-      <div>
-      </div>
+    <BrowserRouter>
+     <div>
+       <div className="container">
+       <SearchForm query={this.state.query} onSearch={this.performSearch}  />
+         <nav className="main-nav">
+           <Nav />
+         </nav>
+       </div>
+       <div className="photo-container">
+         <h2>Results</h2>
+         <Switch>
+          
+           <Route exact path="/search/cats" render={ () => <PhotoList data={this.state.cats} />} />
+           <Route exact path="/search/dogs" render={ () => <PhotoList data={this.state.dogs} />} />
+           <Route exact path="/search/airplanes" render={ () => <PhotoList data={this.state.airplanes} />} />
+           <Route exact path="/search/:query" render={ (routeProps) => <PhotoList data={this.state.photos} {...routeProps}/>} />
+           
+           
+        </Switch>
+            
+          
+        
+
+        
+       </div>
     </div>
+    </BrowserRouter>
 
   );
 
 }
+
+
 }
 
 

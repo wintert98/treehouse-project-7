@@ -15,16 +15,16 @@ onSearchChange = e => {
 //handle sunmit function to handle data input and update router to browser
 handleSubmit = e => {
     e.preventDefault();
+    console.log(this.props);
     let query = this.query.value
-    console.log(query);
     let path = `/search/${this.query.value}`;
-    console.log(path);
     this.props.onSearch(query);
     this.props.history.push(path);
     e.currentTarget.reset();
 }
 // Renders search form and handles inputs to search photos
 render() {
+
     return(
 
           <form className="search-form" onSubmit={this.handleSubmit}>

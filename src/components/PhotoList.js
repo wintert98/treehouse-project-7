@@ -1,9 +1,9 @@
 import React from 'react'
 import Photo from './Photo'
 import NotFound from './NotFound'
-
+// Handles data from API call and coverts to url needed to view photos with alt tags, and generate gallery of photos
  const PhotoList = (props) => {
-
+    console.log(props)
     const results = props.data;
     console.log(results)
     let photos;
@@ -20,9 +20,10 @@ import NotFound from './NotFound'
          
     }
     return(
-        <ul>
-           {photos}
-        </ul>
+        <div className="photo-container">
+          <h2>Results</h2>
+            <ul>{photos}</ul>
+        </div>
   );
 
 }

@@ -64,23 +64,22 @@ performSearch = async (query = 'airplanes') => {
 // Rendering elements and routing
 
 render() {
+  //const query = this.props.match.params.query;
+  console.log(this.routeProps);
   return (
     <BrowserRouter>
      <div>
        <div className="container">
        <SearchForm query={this.state.query} onSearch={this.performSearch}  />
-         <nav className="main-nav">
+       
            <Nav />
-         </nav>
-       </div>
-       <div className="photo-container">
-         <h2>Results</h2>
+         
          <Switch>
           
            <Route exact path="/search/cats" render={ () => <PhotoList data={this.state.cats} />} />
            <Route exact path="/search/dogs" render={ () => <PhotoList data={this.state.dogs} />} />
            <Route exact path="/search/airplanes" render={ () => <PhotoList data={this.state.airplanes} />} />
-           <Route exact path="/search/:query" render={ (routeProps) => <PhotoList data={this.state.photos} {...routeProps}/>} />
+           <Route exact path="/search/:qSearch" render={ (routeProps) => <PhotoList data={this.state.photos} {...routeProps}/>} />
            
            
         </Switch>

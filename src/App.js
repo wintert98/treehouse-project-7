@@ -15,6 +15,7 @@ export default class App extends Component {
 
 constructor() {
   super();
+  
   this.state = {
     photos: [],
     cats: [],
@@ -64,8 +65,7 @@ performSearch = async (query = 'airplanes') => {
 // Rendering elements and routing
 
 render() {
-  //const query = this.props.match.params.query;
-  console.log(this.routeProps);
+ 
   return (
     <BrowserRouter>
      <div>

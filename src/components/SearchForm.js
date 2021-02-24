@@ -15,7 +15,6 @@ onSearchChange = e => {
 //handle sunmit function to handle data input and update router to browser
 handleSubmit = e => {
     e.preventDefault();
-    console.log(this.props);
     let query = this.query.value
     let path = `/search/${this.query.value}`;
     this.props.onSearch(query);

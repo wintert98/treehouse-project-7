@@ -3,9 +3,9 @@ import Photo from './Photo'
 import NotFound from './NotFound'
 // Handles data from API call and coverts to url needed to view photos with alt tags, and generate gallery of photos
  const PhotoList = (props) => {
-    console.log(props)
+   
     const results = props.data;
-    console.log(results)
+   
     let photos;
 
     if(results.length > 0) {

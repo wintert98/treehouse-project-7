@@ -80,13 +80,8 @@ render() {
            <Route exact path="/search/dogs" render={ () => <PhotoList data={this.state.dogs} />} />
            <Route exact path="/search/airplanes" render={ () => <PhotoList data={this.state.airplanes} />} />
            <Route exact path="/search/:qSearch" render={ (routeProps) => <PhotoList data={this.state.photos} {...routeProps}/>} />
-           
-           
+                     
         </Switch>
-            
-          
-        
-
         
        </div>
     </div>
